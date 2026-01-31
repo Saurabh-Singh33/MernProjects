@@ -1,29 +1,102 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-#weatherResult {
-    margin-top: 20px;
-    font-size: 1.2em;
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Headings */
+.container h1 {
+    margin-bottom: 8px;
     color: #333;
 }
 
-#cityname {
-    padding: 10px;
-    font-size: 1em;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 20px;
 }
 
-button#getWeatherBtn {
-    padding: 10px 15px;
-    font-size: 1em;
-    background-color: #007BFF;
-    color: white;
+/* Search Box */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#cityname {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+#cityname:focus {
+    border-color: #007bff;
+}
+
+/* Button */
+#getWeatherBtn {
+    padding: 10px 16px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#getWeatherBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Weather Result Card */
+.weather-card {
+    margin-top: 15px;
+    text-align: left;
+    color: #333;
+}
+
+.weather-card h3 {
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.weather-card p {
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .search-box {
+        flex-direction: column;
+    }
+
+    #getWeatherBtn {
+        width: 100%;
+    }
 }

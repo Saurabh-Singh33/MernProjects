@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to the Weather App</h1>
-    <p>Get the latest weather updates for your location.</p>
-    
-    <input type="text" id="cityname" placeholder="Enter city name">
-    <button id="getWeatherBtn">Get Weather</button>
-    <div id="weatherResult"></div>
+
+    <div class="container">
+        <h1> Weather App</h1>
+        <p class="subtitle">Get real-time weather updates for any city</p>
+
+        <div class="search-box">
+            <input type="text" id="cityname" placeholder="Enter city name">
+            <button id="getWeatherBtn">Get Weather</button>
+        </div>
+
+        <div id="weatherResult" class="weather-card"></div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
