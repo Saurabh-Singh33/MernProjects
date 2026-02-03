@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Smart Weather App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1> Weather App</h1>
-        <p class="subtitle">Get real-time weather updates for any city</p>
+<div class="container">
+    <h1>🌤 Smart Weather App</h1>
+    <p class="subtitle">Live weather with smart indicators</p>
 
-        <div class="search-box">
-            <input type="text" id="cityname" placeholder="Enter city name">
-            <button id="getWeatherBtn">Get Weather</button>
-        </div>
-
-        <div id="weatherResult" class="weather-card"></div>
+    <div class="search-box">
+        <input type="text" id="cityname" placeholder="Enter city name">
+        <button id="getWeatherBtn">Get Weather</button>
     </div>
 
-    <script src="app.js"></script>
+    <div id="weatherResult" class="weather-card">
+        <!-- Default values -->
+        <h3>Weather in London</h3>
+        <p><span>Temperature</span><span>0 °C</span></p>
+        <p><span>Condition</span><span>---</span></p>
+        <p><span>Humidity</span><span>0 %</span></p>
+        <p><span>Wind Speed</span><span>0 m/s</span></p>
+        <p class="status">Status: ---</p>
+    </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
