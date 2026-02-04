@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,25 +8,92 @@
 </head>
 <body>
 
-<div class="container">
-    <h1>🌤 Smart Weather App</h1>
-    <p class="subtitle">Live weather with smart indicators</p>
+<div class="main-container">
+    <div class="container">
+        <header class="header">
+            <h1>🌤 Smart Weather App</h1>
+            <p class="subtitle">Live weather with smart indicators</p>
+        </header>
 
-    <div class="search-box">
-        <input type="text" id="cityname" placeholder="Enter city name">
-        <button id="getWeatherBtn">Get Weather</button>
-    </div>
+        <div class="search-box">
+            <input type="text" id="cityname" placeholder="Enter city name...">
+            <button id="getWeatherBtn">Get Weather</button>
+        </div>
+      
+        <div id="weatherResult" class="weather-card">
+            <!-- Weather Effects Section -->
+            <div class="weather-effects" id="weatherEffects">
+                <div class="effect-container">
+                    <img id="weatherIcon" width="120" alt="Weather Icon" src="https://via.placeholder.com/120">
+                </div>
+                <!-- Rain, Wind, Snow animations -->
+                <div class="rain-container" id="rainContainer"></div>
+                <div class="wind-container" id="windContainer"></div>
+                <div class="snow-container" id="snowContainer"></div>
+                <!-- Lightning effect -->
+                <div class="lightning-effect" id="lightningEffect"></div>
+            </div>
 
-    <div id="weatherResult" class="weather-card">
-        <!-- Default values -->
-        <h3>Weather in London</h3>
-        <p><span>Temperature</span><span>0 °C</span></p>
-        <p><span>Condition</span><span>---</span></p>
-        <p><span>Humidity</span><span>0 %</span></p>
-        <p><span>Wind Speed</span><span>0 m/s</span></p>
-        <p class="status">Status: ---</p>
+            <!-- City and Status -->
+            <div class="city-info">
+                <h2 id="cityName">London</h2>
+                <p class="condition" id="conditionText">---</p>
+            </div>
+
+            <!-- Main Temperature Display -->
+            <div class="temperature-display">
+                <div class="main-temp">
+                    <span id="mainTemp">0</span>
+                    <span class="degree">°C</span>
+                </div>
+                <div class="feels-like">
+                    Feels like <span id="feelsTemp">0</span>°C
+                </div>
+            </div>
+
+            <!-- Status Badge -->
+            <p class="status" id="statusBadge">Status: Normal Weather 🙂</p>
+
+            <!-- Weather Parameters Section -->
+            <div class="params-container">
+                <div class="param-card">
+                    <div class="param-icon">💨</div>
+                    <div class="param-content">
+                        <span class="param-label">Wind Speed</span>
+                        <span class="param-value" id="windValue">0 m/s</span>
+                        <span class="param-detail" id="windDetail">Calm</span>
+                    </div>
+                </div>
+
+                <div class="param-card">
+                    <div class="param-icon">💧</div>
+                    <div class="param-content">
+                        <span class="param-label">Humidity</span>
+                        <span class="param-value" id="humidityValue">0%</span>
+                        <span class="param-detail" id="humidityDetail">Normal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Details -->
+            <div class="details-section">
+                <div class="detail-item">
+                    <span class="detail-label">Condition</span>
+                    <span class="detail-value" id="detailCondition">---</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Sunrise</span>
+                    <span class="detail-value" id="sunrise">---</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Sunset</span>
+                    <span class="detail-value" id="sunset">---</span>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+ </div>
 
 <script src="app.js"></script>
 </body>
