@@ -5,53 +5,196 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Weather App</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
+  <div class="main-container">
+    <div class="container">
+      <header class="header">
+        <div class="app-title">
+          <i class="fas fa-cloud-sun"></i>
+          <h1>Smart Weather</h1>
+        </div>
+        <p class="subtitle">Real-time weather with intelligent indicators</p>
+      </header>
 
-<div class="main-container">
-  <div class="container">
+      <div class="search-box">
+        <div class="search-input">
+          <i class="fas fa-search"></i>
+          <input type="text" id="cityInput" placeholder="Enter city name..." />
+          <button id="searchBtn">
+            <i class="fas fa-location-arrow"></i>
+            <span>Get Weather</span>
+          </button>
+        </div>
+        <div class="location-buttons">
+          <button id="currentLocationBtn" class="location-btn">
+            <i class="fas fa-location-dot"></i>
+            Current Location
+          </button>
+          <button id="sampleCitiesBtn" class="location-btn">
+            <i class="fas fa-city"></i>
+            Sample Cities
+          </button>
+        </div>
+      </div>
 
-    <header class="header">
-      <h1>🌤 Smart Weather App</h1>
-      <p class="subtitle">Live weather with smart indicators</p>
-    </header>
+      <div class="weather-card">
+        <div class="weather-header">
+          <h2 id="city"><i class="fas fa-map-marker-alt"></i> New York, US</h2>
+          <p id="condition">Partly Cloudy</p>
+          <div class="date-time" id="dateTime">Monday, Oct 23 • 14:30</div>
+        </div>
 
-    <div class="search-box">
-      <input type="text" id="cityInput" placeholder="Enter city name..." />
-      <button id="searchBtn">Get Weather</button>
+        <div class="weather-main">
+          <div class="weather-icon-container">
+            <div class="weather-effects" id="effects">
+              <img id="weatherIcon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="Weather Icon" />
+              <div class="effect" id="rain"></div>
+              <div class="effect" id="snow"></div>
+              <div class="effect" id="wind"></div>
+              <div class="effect" id="lightning"></div>
+            </div>
+          </div>
+          
+          <div class="temperature-section">
+            <div class="temp">
+              <span id="temp">24</span>
+              <span class="temp-unit">°C</span>
+            </div>
+            <p class="feels-like">Feels like <span id="feels">26</span>°C</p>
+            <div class="temp-range">
+              <span class="temp-min"><i class="fas fa-arrow-down"></i> <span id="tempMin">18</span>°</span>
+              <span class="temp-max"><i class="fas fa-arrow-up"></i> <span id="tempMax">28</span>°</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="weather-status">
+          <div class="status-card normal" id="statusCard">
+            <i class="fas fa-info-circle"></i>
+            <div>
+              <h3>Weather Status</h3>
+              <p id="status">Conditions are pleasant</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail-card">
+            <div class="detail-icon">
+              <i class="fas fa-wind"></i>
+            </div>
+            <div class="detail-info">
+              <h4>Wind</h4>
+              <p><span id="windSpeed">5.2</span> m/s</p>
+              <span class="detail-label">Moderate breeze</span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div class="detail-info">
+              <h4>Humidity</h4>
+              <p><span id="humidity">65</span>%</p>
+              <span class="detail-label">Comfortable</span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <i class="fas fa-temperature-high"></i>
+            </div>
+            <div class="detail-info">
+              <h4>Pressure</h4>
+              <p><span id="pressure">1013</span> hPa</p>
+              <span class="detail-label">Normal</span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="detail-info">
+              <h4>Visibility</h4>
+              <p><span id="visibility">10</span> km</p>
+              <span class="detail-label">Clear</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sun-times">
+          <div class="sun-card">
+            <div class="sun-icon sunrise">
+              <i class="fas fa-sun"></i>
+            </div>
+            <div class="sun-info">
+              <h4>Sunrise</h4>
+              <p id="sunrise">06:45 AM</p>
+            </div>
+          </div>
+          
+          <div class="sun-card">
+            <div class="sun-icon sunset">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div class="sun-info">
+              <h4>Sunset</h4>
+              <p id="sunset">06:15 PM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-preview">
+          <h3><i class="fas fa-calendar-alt"></i> Next 3 Days</h3>
+          <div class="forecast-cards">
+            <div class="forecast-card">
+              <div class="forecast-day">Tomorrow</div>
+              <div class="forecast-icon"><i class="fas fa-cloud-sun"></i></div>
+              <div class="forecast-temp">25° / 19°</div>
+            </div>
+            <div class="forecast-card">
+              <div class="forecast-day">Wed</div>
+              <div class="forecast-icon"><i class="fas fa-cloud-rain"></i></div>
+              <div class="forecast-temp">22° / 17°</div>
+            </div>
+            <div class="forecast-card">
+              <div class="forecast-day">Thu</div>
+              <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+              <div class="forecast-temp">27° / 20°</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>Powered by OpenWeather API • Data updates every 10 minutes</p>
+        <p class="last-update">Last updated: <span id="lastUpdate">Just now</span></p>
+      </footer>
     </div>
 
-    <div class="weather-card">
-
-      <div class="weather-effects" id="effects">
-        <img id="weatherIcon" />
-        <div id="rain"></div>
-        <div id="snow"></div>
-        <div id="wind"></div>
-        <div id="lightning"></div>
+    <div class="sample-cities-modal" id="sampleModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Select a Sample City</h3>
+          <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+        <div class="cities-grid">
+          <button class="city-btn" data-city="London">London, UK</button>
+          <button class="city-btn" data-city="Tokyo">Tokyo, Japan</button>
+          <button class="city-btn" data-city="Sydney">Sydney, Australia</button>
+          <button class="city-btn" data-city="Dubai">Dubai, UAE</button>
+          <button class="city-btn" data-city="Moscow">Moscow, Russia</button>
+          <button class="city-btn" data-city="Cairo">Cairo, Egypt</button>
+        </div>
       </div>
-
-      <h2 id="city">--</h2>
-      <p id="condition">---</p>
-
-      <div class="temp">
-        <span id="temp">0</span>°C
-      </div>
-      <p class="feels">Feels like <span id="feels">0</span>°C</p>
-
-      <p id="status" class="status normal">Status: --</p>
-
-      <div class="info">
-        <div>💨 Wind: <span id="windSpeed">0</span> m/s</div>
-        <div>💧 Humidity: <span id="humidity">0</span>%</div>
-        <div>🌅 Sunrise: <span id="sunrise">--</span></div>
-        <div>🌇 Sunset: <span id="sunset">--</span></div>
-      </div>
-
     </div>
   </div>
-</div>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
