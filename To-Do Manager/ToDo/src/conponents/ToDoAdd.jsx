@@ -2,8 +2,8 @@ import React from 'react'
 
 const ToDoAdd = () => {
   return (
-    <center className='ToDo-Container'>
-      <div className="container text-center">
+     
+  <div className="container text-center">
   
   <div className="row">
     <div className="col-6">
@@ -17,7 +17,7 @@ const ToDoAdd = () => {
     </div>
   </div>
 </div>
-    </center>
+     
   )
 }
 
