@@ -1,19 +1,18 @@
+import ToDoItem from './ToDoItem';
 
-import ToDoItem from './ToDoItem'
-
-const ToDoitems = ({ tasks }) => {
+const ToDoitems = ({ tasks, deleteTask }) => {
   return (
     <>
-    {tasks.map((taskitem)=>{
-      return(
-      
-      <ToDoItem taskname={taskitem.taskname} date={taskitem.date} />
-    
-      )
-    })}
+      {tasks.map((taskitem, index) => (
+        <ToDoItem
+          key={index}
+          taskname={taskitem.taskname}
+          date={taskitem.date}
+          deleteTask={() => deleteTask(index)}
+        />
+      ))}
     </>
-  
-  )
-}
+  );
+};
 
-export default ToDoitems
+export default ToDoitems;
