@@ -11,7 +11,7 @@ function App() {
     { taskname: "Come back from collage", date: "2024-06-30" },
   ]);
 
-  // Add Task
+  
   const addTask = (taskname, date) => {
     if (!taskname || !date) {
       toast.error("Please enter task and date!");
@@ -22,11 +22,11 @@ function App() {
     toast.success("Task added successfully!");
   };
 
-  // Delete Task
+  
   const deleteTask = (index) => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
-    toast.success("Task is completed!"); // Show toast
+    toast.warning("Task is completed!");
   };
 
   return (
@@ -34,7 +34,7 @@ function App() {
       <ToDoHead />
       <ToDoAdd addTask={addTask} />
       <ToDoitems tasks={tasks} deleteTask={deleteTask} />
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 }

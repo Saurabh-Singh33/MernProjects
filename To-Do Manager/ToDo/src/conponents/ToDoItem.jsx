@@ -7,7 +7,7 @@ const ToDoItem = ({ taskname, date, deleteTask }) => {
       <div className="col-4">{date}</div>
       <div className="col-2">
         <button className="btn btn-danger" onClick={deleteTask}>
-          Delete
+         Completed
         </button>
       </div>
     </div>

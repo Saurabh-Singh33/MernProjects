@@ -6,7 +6,7 @@ const ToDoAdd = ({ addTask }) => {
 
   const handleAdd = () => {
     addTask(taskname, date);
-    setTaskname(""); // Clear input
+    setTaskname(""); 
     setDate("");
   };
 
