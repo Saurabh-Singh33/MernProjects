@@ -34,7 +34,7 @@ function App() {
       <ToDoHead />
       <ToDoAdd addTask={addTask} />
       <ToDoitems tasks={tasks} deleteTask={deleteTask} />
-      <ToastContainer position="top-left" autoClose={1000} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 }
