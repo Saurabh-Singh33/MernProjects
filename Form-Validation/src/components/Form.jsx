@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./Form.module.css";
 import ErrorMessage from "./ErrorMessage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
 
@@ -124,6 +126,7 @@ const Form = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
         />
+        
         <ErrorMessage error={errors.confirmPassword} />
 
         <input className={styles.input} 
