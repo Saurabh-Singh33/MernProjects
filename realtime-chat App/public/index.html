@@ -1,0 +1,802 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Modern Split-Screen Chat | Messenger Style</title>
+  <!-- Google Fonts + Font Awesome 6 (free icons) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      background: #e5ded8;
+      background-image: radial-gradient(circle at 25% 40%, rgba(210, 190, 170, 0.2) 2%, transparent 2.5%),
+                        radial-gradient(circle at 70% 85%, rgba(160, 140, 120, 0.15) 1.8%, transparent 2%);
+      background-size: 48px 48px, 36px 36px;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* MAIN SPLIT CONTAINER */
+    .chat-dashboard {
+      display: flex;
+      gap: 20px;
+      width: 1400px;
+      max-width: 98vw;
+      height: 92vh;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(0px);
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+    }
+
+    /* each panel container */
+    .chat-panel-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fefefe;
+      border-radius: 28px;
+      margin: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(224, 214, 200, 0.5);
+    }
+
+    /* HEADER (WhatsApp style) */
+    .chat-header {
+      background: #ffffff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0eae4;
+      backdrop-filter: blur(4px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e9e2da;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 16px;
+      color: #1f2c24;
+      letter-spacing: -0.2px;
+    }
+
+    .online-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #3b7a5e;
+      font-weight: 500;
+    }
+
+    .green-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #25d366;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 2px white;
+    }
+
+    /* header icons */
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-circle {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #546e5f;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .icon-circle:hover {
+      background: #f0f2f0;
+      color: #1f4738;
+      transform: scale(1.02);
+    }
+
+    /* dropdown menu (three dots) */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      top: 48px;
+      background-color: white;
+      min-width: 200px;
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      transition: visibility 0.2s, opacity 0.2s ease;
+      overflow: hidden;
+      border: 1px solid #eee5dc;
+    }
+
+    .dropdown-content.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .dropdown-content a {
+      color: #2b3b32;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    .dropdown-content a i {
+      width: 20px;
+      color: #6c8d7a;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f5f2ef;
+    }
+
+    /* MESSAGES AREA (split content) */
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #faf7f2;
+      scroll-behavior: smooth;
+    }
+
+    /* chat bubble enhancements */
+    .message-row {
+      display: flex;
+      width: 100%;
+      animation: fadeSlideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .message-row.sent {
+      justify-content: flex-end;
+    }
+
+    .message-row.received {
+      justify-content: flex-start;
+    }
+
+    .bubble-wrapper {
+      max-width: 75%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* avatar beside first message in group (received) */
+    .group-avatar {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .small-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #d9cfc2;
+      flex-shrink: 0;
+      margin-right: 4px;
+      align-self: flex-end;
+      margin-bottom: 4px;
+    }
+
+    .small-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.45;
+      word-break: break-word;
+      box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    /* sent bubble: green gradient */
+    .message-row.sent .bubble {
+      background: linear-gradient(135deg, #dcf8c6 0%, #c6f0b2 100%);
+      color: #111b15;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* received bubble: white + border */
+    .message-row.received .bubble {
+      background: white;
+      border: 1px solid #efe3d6;
+      border-bottom-left-radius: 4px;
+      color: #2c3a32;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: #8f9e93;
+      margin-top: 4px;
+      margin-left: 8px;
+      margin-right: 8px;
+      letter-spacing: 0.2px;
+      font-weight: 500;
+    }
+
+    .message-row.sent .timestamp {
+      text-align: right;
+    }
+
+    /* typing indicator placeholder */
+    .typing-indicator-area {
+      padding: 8px 16px 12px;
+      font-size: 12px;
+      color: #6f8b7a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      min-height: 44px;
+    }
+
+    .typing-dots-animation {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .typing-dots-animation span {
+      width: 6px;
+      height: 6px;
+      background: #578b72;
+      border-radius: 50%;
+      display: inline-block;
+      animation: typingBounce 1.2s infinite ease;
+    }
+
+    .typing-dots-animation span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots-animation span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* input bar modern */
+    .input-container {
+      background: #ffffff;
+      border-top: 1px solid #efe3d6;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .input-icons-left {
+      display: flex;
+      gap: 12px;
+      color: #7e9a89;
+      font-size: 22px;
+    }
+
+    .input-icons-left i {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .input-icons-left i:hover {
+      color: #1f6e50;
+    }
+
+    .message-input-field {
+      flex: 1;
+      background: #f4f1ec;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: all 0.2s;
+      color: #1e2c24;
+    }
+
+    .message-input-field:focus {
+      background: white;
+      box-shadow: 0 0 0 2px #cce3d6;
+    }
+
+    .send-round {
+      background: linear-gradient(145deg, #1f8a64, #106a4b);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .send-round:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 18px rgba(26, 115, 79, 0.3);
+      background: linear-gradient(145deg, #239c72, #137a57);
+    }
+
+    .send-round:disabled {
+      opacity: 0.5;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    /* scrollbar */
+    .messages-area::-webkit-scrollbar {
+      width: 6px;
+    }
+    .messages-area::-webkit-scrollbar-track {
+      background: #eae3db;
+      border-radius: 8px;
+    }
+    .messages-area::-webkit-scrollbar-thumb {
+      background: #b7aa9a;
+      border-radius: 8px;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* panel title subtle */
+    .panel-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      background: #f0ebe4;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+      margin: 8px 16px 0;
+      width: fit-content;
+      color: #5d6d60;
+    }
+  </style>
+</head>
+<body>
+<div class="chat-dashboard">
+  <!-- USER A PANEL (left) -->
+  <div class="chat-panel-wrapper" data-panel="A">
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="avatar">
+          <img src="https://i.pravatar.cc/40?img=3" alt="User A avatar">
+        </div>
+        <div class="user-info">
+          <div class="user-name">Saurabh Singh Rathore</div>
+          <div class="online-status"><span class="green-dot"></span> Online</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-circle" title="Call"><i class="fas fa-phone-alt"></i></button>
+        <button class="icon-circle" title="Video"><i class="fas fa-video"></i></button>
+        <div class="dropdown" id="dropdownA">
+          <button class="icon-circle" id="menuBtnA"><i class="fas fa-ellipsis-v"></i></button>
+          <div class="dropdown-content" id="dropdownContentA">
+            <a><i class="far fa-user-circle"></i> View Profile</a>
+            <a><i class="far fa-trash-alt"></i> Clear Chat</a>
+            <a><i class="fas fa-bell-slash"></i> Mute Notifications</a>
+            <a><i class="fas fa-ban"></i> Block User</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="messages-area" id="messagesAreaA"></div>
+    <div class="typing-indicator-area" id="typingAreaA">
+      <!-- dynamic typing placeholder -->
+    </div>
+    <div class="input-container">
+      <div class="input-icons-left">
+        <i class="far fa-smile-wink"></i>
+        <i class="fas fa-paperclip"></i>
+        <i class="fas fa-microphone"></i>
+      </div>
+      <input type="text" class="message-input-field" id="msgInputA" placeholder="Type a message..." autocomplete="off">
+      <button class="send-round" id="sendBtnA" disabled><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- USER B PANEL (right) -->
+  <div class="chat-panel-wrapper" data-panel="B">
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="avatar">
+          <img src="https://i.pravatar.cc/40?img=5" alt="User B avatar">
+        </div>
+        <div class="user-info">
+          <div class="user-name">Raghu's Friend</div>
+          <div class="online-status"><span class="green-dot"></span> Online</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-circle" title="Call"><i class="fas fa-phone-alt"></i></button>
+        <button class="icon-circle" title="Video"><i class="fas fa-video"></i></button>
+        <div class="dropdown" id="dropdownB">
+          <button class="icon-circle" id="menuBtnB"><i class="fas fa-ellipsis-v"></i></button>
+          <div class="dropdown-content" id="dropdownContentB">
+            <a><i class="far fa-user-circle"></i> View Profile</a>
+            <a><i class="far fa-trash-alt"></i> Clear Chat</a>
+            <a><i class="fas fa-bell-slash"></i> Mute Notifications</a>
+            <a><i class="fas fa-ban"></i> Block User</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="messages-area" id="messagesAreaB"></div>
+    <div class="typing-indicator-area" id="typingAreaB"></div>
+    <div class="input-container">
+      <div class="input-icons-left">
+        <i class="far fa-smile-wink"></i>
+        <i class="fas fa-paperclip"></i>
+        <i class="fas fa-microphone"></i>
+      </div>
+      <input type="text" class="message-input-field" id="msgInputB" placeholder="Type a message..." autocomplete="off">
+      <button class="send-round" id="sendBtnB" disabled><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // ---------- PRESERVE SOCKET LOGIC ----------
+  // two independent sockets for each "user context"
+  const socketA = io();   // represents User A's connection
+  const socketB = io();   // represents User B's connection
+
+  // DOM elements
+  const messagesAreaA = document.getElementById('messagesAreaA');
+  const messagesAreaB = document.getElementById('messagesAreaB');
+  const inputA = document.getElementById('msgInputA');
+  const inputB = document.getElementById('msgInputB');
+  const sendBtnA = document.getElementById('sendBtnA');
+  const sendBtnB = document.getElementById('sendBtnB');
+  const typingAreaA = document.getElementById('typingAreaA');
+  const typingAreaB = document.getElementById('typingAreaB');
+
+  // data structures to avoid duplicates (by message ID)
+  let renderedMessagesA = new Set();
+  let renderedMessagesB = new Set();
+  let globalMsgId = 0;
+
+  // helper: format timestamp (HH:MM)
+  function getFormattedTime() {
+    const d = new Date();
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  }
+
+  // create message row with optional avatar beside first received message
+  // for group chat style, we can attach a small avatar for "received" messages if flag true
+  // but we'll show avatar only for received ones (we'll decide: every received gets avatar for simplicity? 
+  // but requirement says "small avatar beside first message in group" - but we simplify: each received bubble includes avatar 
+  // to look like modern messenger. Actually we can show avatar always for received to match design elegance.
+  // To be safe and modern: each received message row includes small avatar from pravatar (user B gets avatar image)
+  function createMessageElement(text, type, timestamp, messageId, senderUser) {
+    // type: 'sent' or 'received'
+    const row = document.createElement('div');
+    row.className = `message-row ${type}`;
+    row.dataset.msgId = messageId;
+
+    const bubbleWrapper = document.createElement('div');
+    bubbleWrapper.className = 'bubble-wrapper';
+
+    // For received messages: add small avatar (group style)
+    if (type === 'received') {
+      const groupDiv = document.createElement('div');
+      groupDiv.className = 'group-avatar';
+      const smallAvatarDiv = document.createElement('div');
+      smallAvatarDiv.className = 'small-avatar';
+      // choose correct avatar image based on sender (User A or User B)
+      const avatarImg = document.createElement('img');
+      if (senderUser === 'A') {
+        avatarImg.src = 'https://i.pravatar.cc/40?img=3';
+        avatarImg.alt = 'A';
+      } else {
+        avatarImg.src = 'https://i.pravatar.cc/40?img=5';
+        avatarImg.alt = 'B';
+      }
+      smallAvatarDiv.appendChild(avatarImg);
+      groupDiv.appendChild(smallAvatarDiv);
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = 'bubble';
+      bubbleDiv.textContent = text;
+      groupDiv.appendChild(bubbleDiv);
+      bubbleWrapper.appendChild(groupDiv);
+    } else {
+      // sent message: no avatar
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = 'bubble';
+      bubbleDiv.textContent = text;
+      bubbleWrapper.appendChild(bubbleDiv);
+    }
+
+    const timeSpan = document.createElement('div');
+    timeSpan.className = 'timestamp';
+    timeSpan.textContent = timestamp;
+    bubbleWrapper.appendChild(timeSpan);
+    row.appendChild(bubbleWrapper);
+    return row;
+  }
+
+  // Append message to appropriate panel with smooth scroll
+  function appendMessageToPanel(panelId, text, type, senderUser, messageId) {
+    const panel = panelId === 'A' ? messagesAreaA : messagesAreaB;
+    const usedSet = panelId === 'A' ? renderedMessagesA : renderedMessagesB;
+    if (usedSet.has(messageId)) return;
+    usedSet.add(messageId);
+    const timestamp = getFormattedTime();
+    const msgElement = createMessageElement(text, type, timestamp, messageId, senderUser);
+    panel.appendChild(msgElement);
+    // smooth scroll to bottom
+    panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
+  }
+
+  // handle incoming messages from socket (both sockets)
+  // data: { user: 'A' or 'B', message: string, id: string }
+  function handleIncomingMessage(data) {
+    if (!data || !data.id || !data.user) return;
+    const { user, message, id } = data;
+    // For panel A perspective:
+    // if sender is A => in panel A it's "sent", in panel B it's "received"
+    // if sender is B => in panel A it's "received", in panel B it's "sent"
+    if (user === 'A') {
+      appendMessageToPanel('A', message, 'sent', 'A', id);
+      appendMessageToPanel('B', message, 'received', 'A', id);
+    } else {
+      appendMessageToPanel('A', message, 'received', 'B', id);
+      appendMessageToPanel('B', message, 'sent', 'B', id);
+    }
+  }
+
+  // send message logic using correct socket (preserve socket emit)
+  function sendMessageFromUser(sender, messageText, inputElement, btnElement) {
+    if (!messageText.trim()) return;
+    const msgId = `msg_${Date.now()}_${Math.random()}_${globalMsgId++}`;
+    const messagePayload = { user: sender, message: messageText, id: msgId };
+    // Emit via appropriate socket (sender's socket)
+    if (sender === 'A') {
+      socketA.emit('chat message', messagePayload);
+    } else {
+      socketB.emit('chat message', messagePayload);
+    }
+    // Clear input & disable send button
+    inputElement.value = '';
+    btnElement.disabled = true;
+    // stop typing indicator for this user (emit stop typing)
+    const stopTypingPayload = { user: sender };
+    if (sender === 'A') socketA.emit('stop typing', stopTypingPayload);
+    else socketB.emit('stop typing', stopTypingPayload);
+    // Also clear local typing indicator for opposite panel
+    if (sender === 'A') updateTypingUI('B', null, false);
+    else updateTypingUI('A', null, false);
+  }
+
+  // ---- Typing indicator logic (UI only placeholder but with real socket events) ----
+  let typingTimeouts = { A: null, B: null };
+
+  function updateTypingUI(panelToShow, userWhoIsTyping, isTyping) {
+    // panelToShow: 'A' means update User A panel's typing area; 'B' means update User B panel's typing area
+    const typingContainer = panelToShow === 'A' ? typingAreaA : typingAreaB;
+    if (!typingContainer) return;
+    if (isTyping && userWhoIsTyping) {
+      const displayName = userWhoIsTyping === 'A' ? 'User A' : 'User B';
+      typingContainer.innerHTML = `<div style="display:flex; align-items:center; gap:6px;"><div class="typing-dots-animation"><span></span><span></span><span></span></div><span style="font-size:12px; font-weight:500;">${displayName} is typing...</span></div>`;
+    } else {
+      typingContainer.innerHTML = ''; // clear typing area placeholder
+    }
+  }
+
+  function handleTyping(data) {
+    if (!data || !data.user) return;
+    const typingUser = data.user; // 'A' or 'B'
+    // Show typing indicator in opposite panel: if User A is typing, show in panel B's typing area
+    if (typingUser === 'A') {
+      updateTypingUI('B', 'A', true);
+      if (typingTimeouts.B) clearTimeout(typingTimeouts.B);
+      typingTimeouts.B = setTimeout(() => {
+        updateTypingUI('B', 'A', false);
+      }, 2000);
+    } else if (typingUser === 'B') {
+      updateTypingUI('A', 'B', true);
+      if (typingTimeouts.A) clearTimeout(typingTimeouts.A);
+      typingTimeouts.A = setTimeout(() => {
+        updateTypingUI('A', 'B', false);
+      }, 2000);
+    }
+  }
+
+  function handleStopTyping(data) {
+    if (!data || !data.user) return;
+    const stoppedUser = data.user;
+    if (stoppedUser === 'A') {
+      updateTypingUI('B', 'A', false);
+      if (typingTimeouts.B) clearTimeout(typingTimeouts.B);
+    } else if (stoppedUser === 'B') {
+      updateTypingUI('A', 'B', false);
+      if (typingTimeouts.A) clearTimeout(typingTimeouts.A);
+    }
+  }
+
+  // Input event handlers with typing emits
+  function setupTypingForInput(inputElem, user, socketRef, panelOpposite) {
+    let typingTimer;
+    inputElem.addEventListener('input', () => {
+      const hasText = inputElem.value.trim().length > 0;
+      if (hasText) {
+        // emit typing
+        socketRef.emit('typing', { user: user });
+        // clear previous stop timeout
+        if (typingTimer) clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+          if (inputElem.value.trim() === '') {
+            socketRef.emit('stop typing', { user: user });
+          }
+        }, 800);
+      } else {
+        socketRef.emit('stop typing', { user: user });
+      }
+      // enable/disable send button
+      const btn = user === 'A' ? sendBtnA : sendBtnB;
+      btn.disabled = inputElem.value.trim() === '';
+    });
+    inputElem.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        const currentMsg = inputElem.value.trim();
+        if (currentMsg) {
+          sendMessageFromUser(user, currentMsg, inputElem, user === 'A' ? sendBtnA : sendBtnB);
+        }
+      }
+    });
+  }
+
+  // send button listeners
+  sendBtnA.addEventListener('click', () => {
+    if (inputA.value.trim()) sendMessageFromUser('A', inputA.value, inputA, sendBtnA);
+  });
+  sendBtnB.addEventListener('click', () => {
+    if (inputB.value.trim()) sendMessageFromUser('B', inputB.value, inputB, sendBtnB);
+  });
+
+  // Attach typing handlers
+  setupTypingForInput(inputA, 'A', socketA, 'B');
+  setupTypingForInput(inputB, 'B', socketB, 'A');
+
+  // socket listeners (preserve original messaging)
+  socketA.on('chat message', handleIncomingMessage);
+  socketB.on('chat message', handleIncomingMessage);
+  socketA.on('typing', handleTyping);
+  socketB.on('typing', handleTyping);
+  socketA.on('stop typing', handleStopTyping);
+  socketB.on('stop typing', handleStopTyping);
+
+  // also handle connection status (UI only optional)
+  socketA.on('connect', () => console.log('Socket A connected'));
+  socketB.on('connect', () => console.log('Socket B connected'));
+
+  // DROPDOWN MENU (FAKE, UI only) - three-dots menu toggles
+  function setupDropdown(menuBtnId, dropdownContentId) {
+    const btn = document.getElementById(menuBtnId);
+    const dropdownDiv = document.getElementById(dropdownContentId);
+    if (!btn || !dropdownDiv) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownDiv.classList.toggle('show');
+    });
+    document.addEventListener('click', (e) => {
+      if (!btn.contains(e.target) && !dropdownDiv.contains(e.target)) {
+        dropdownDiv.classList.remove('show');
+      }
+    });
+    // prevent closing on inner clicks (optional)
+    dropdownDiv.querySelectorAll('a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropdownDiv.classList.remove('show');
+        // just console fake actions
+        console.log('Fake menu action:', item.innerText);
+      });
+    });
+  }
+
+  setupDropdown('menuBtnA', 'dropdownContentA');
+  setupDropdown('menuBtnB', 'dropdownContentB');
+
+  // initial UI cleanup: set send buttons disabled by default
+  sendBtnA.disabled = true;
+  sendBtnB.disabled = true;
+  // small fake online status green dot stays; everything is functional without breaking backend.
+  // also smooth scroll initial empty state
+  console.log('Modern chat UI ready — socket logic untouched ✅');
+</script>
+</body>
+</html>
