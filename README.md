@@ -150,7 +150,7 @@ Role Based Access Control
 Form Validation
 Real-time Apps
 CRUD Operations
-🎯 Purpose of This Repo
+ Purpose of This Repo
 
 This repository is meant to:
 
@@ -162,7 +162,7 @@ Prepare for internships and real projects
 
 Planned upgrades:
 
-Add database integration (MongoDB)
+Add database integration (MongoDB Atlas)
 Convert mini projects into full MERN apps
 Deploy projects
 Add proper documentation to each folder
