@@ -1,6 +1,7 @@
 🚀 MERN & Next.js Practice Projects
 
-This repository contains multiple mini-projects and practice apps built while learning React, Next.js, Node.js, Express, TypeScript and Authentication concepts.
+This repository contains multiple mini-projects and practice apps built while learning React, Next.js, Node.js, Express, TypeScript and Authentication.
+
 Each folder represents an individual project focusing on a specific concept of full-stack development.
 
 👨‍💻 About This Repository
@@ -15,161 +16,159 @@ Authentication & Authorization
 Real-time applications
 Form handling & validation
 
-The goal of this repo is learning by building and gradually moving toward full-stack development.
+Goal: Learn by building and gradually move toward full-stack development.
 
-📂 Projects Included
-🔐 Based Login
+📂 Projects (Grouped by Category)
+🔐 Authentication & Security Projects
+🔑 Based Login
 
 Basic login system implementation.
 
-Concepts covered
+Concepts
 
 Authentication flow
 Protected pages
-Basic UI for login system
-🧾 CRUD_OPERATION
+Basic login UI
+🛡️ RBAC TypeScript (Role Based Access Control)
 
-A basic CRUD application.
+Role-based authorization system.
 
-Concepts covered
+Concepts
 
-Create / Read / Update / Delete operations
-API integration
-State management
+User roles (Admin / User)
+Access restriction
+Protected routes
+🔐 JWT – Token & Protected Routes
+
+Authentication using JSON Web Tokens.
+
+Concepts
+
+JWT authentication
+Token storage & verification
+Route protection
+⚙️ Backend / TypeScript Projects
 ⚙️ Express API Using TypeScript
 
 Backend REST API built using Express + TypeScript.
 
-Concepts covered
+Concepts
 
 Express server setup
 TypeScript configuration
 REST API structure
 Controllers & routes
-✅ Form-Validation
+🧾 CRUD & State Management Projects
+🧾 CRUD_OPERATION
 
-Frontend form validation project.
+Basic CRUD application.
 
-Concepts covered
+Concepts
+
+Create / Read / Update / Delete
+API integration
+State management
+📝 To-Do Manager
+
+Classic To-Do application.
+
+Concepts
+
+Task management
+CRUD operations
+UI interaction
+🧠 React / Frontend Practice Projects
+📑 Multi-Page Component
+
+Multi-page navigation and layout practice.
+
+Concepts
+
+Routing
+Component structuring
+Page layouts
+🧮 TaskCalculator
+
+Simple calculator / task app.
+
+Concepts
+
+State handling
+Component logic
+✅ Form Validation
+
+Frontend validation project.
+
+Concepts
 
 Form handling
 Input validation
 Toast notifications
 Better UI feedback
-📑 Multi-Page Component
-
-Multi-page navigation and layout practice.
-
-Concepts covered
-
-Routing
-Component structuring
-Page layouts
-🛡️ RBAC TypeScript (Role Based Access Control)
-
-Implementation of role-based authorization.
-
-Concepts covered
-
-User roles (Admin / User)
-Access restriction
-Protected routes
-🧮 TaskCalculator
-
-A simple task/calculator style app.
-
-Concepts covered
-
-State handling
-Component logic
-📝 To-Do Manager
-
-Classic To-Do application.
-
-Concepts covered
-
-Task management
-CRUD operations
-UI interaction
+🌐 API & Async Projects
 🌦️ Weather App
 
-Weather information app.
+Weather information application.
 
-Concepts covered
+Concepts
 
 API fetching
-Async/Await
+Async / Await
 Data rendering
-🔑 Working Of Token & Protected Route (JWT)
-
-Authentication using JSON Web Tokens.
-
-Concepts covered
-
-JWT authentication
-Protected routes
-Token storage & verification
+💬 Real-Time Application
 💬 Realtime Chat App
 
 Real-time messaging application.
 
-Concepts covered
+Concepts
 
-Real-time communication
-Socket based interaction
+Socket based communication
 Live message updates
+📰 Next.js Project
 📰 Blog App (Next.js)
 
-Next.js project setup and blog structure.
+Next.js blog structure and routing.
 
-Concepts covered
+Concepts
 
 Next.js app structure
 Routing
 Public assets
 Modern frontend setup
 🛠️ Tech Stack
-
 Frontend
-
 React
 Next.js
 JavaScript / TypeScript
 HTML & CSS
-
 Backend
-
 Node.js
 Express.js
 REST APIs
-
-Concepts
-
+Core Concepts Covered
 Authentication (JWT)
 Role Based Access Control
 Form Validation
 Real-time Apps
 CRUD Operations
- Purpose of This Repo
+🎯 Purpose of This Repo
 
-This repository is meant to:
+This repository helps me to:
 
 Track my learning progress
 Practice real-world concepts
 Build a strong full-stack foundation
-Prepare for internships and real projects
+Prepare for internships & real projects
 ⭐ Future Improvements
 
 Planned upgrades:
 
-Add database integration (MongoDB Atlas)
+Add MongoDB Atlas database
 Convert mini projects into full MERN apps
 Deploy projects
-Add proper documentation to each folder
+Add documentation to each folder
 🤝 Contributing
 
-This is a personal learning repository, but suggestions and feedback are always welcome!
+This is a personal learning repository, but suggestions and feedback are welcome!
 
-⭐ If you like this repo
-
-Give it a ⭐ on GitHub — it motivates me to build more!
+⭐ If you like this repo, give it a star on GitHub — it motivates me to build more!
