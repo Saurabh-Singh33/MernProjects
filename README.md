@@ -87,7 +87,7 @@ Concepts
 Routing
 Component structuring
 Page layouts
-🧮 TaskCalculator
+TaskCalculator
 
 Simple calculator / task app.
 
@@ -95,7 +95,7 @@ Concepts
 
 State handling
 Component logic
-✅ Form Validation
+Form Validation
 
 Frontend validation project.
 
