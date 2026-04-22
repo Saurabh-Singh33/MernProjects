@@ -11,7 +11,7 @@ This repo is a collection of hands-on projects created while learning modern web
 It includes:
 
 Frontend projects (React / Next.js)
-Backend APIs (Express / TypeScript)
+Backend APIs (Express)
 Authentication & Authorization
 Real-time applications
 Form handling & validation
