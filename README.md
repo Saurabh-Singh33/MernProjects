@@ -84,12 +84,7 @@ Multi-page navigation and layout practice.
 
 Concepts
 
-Routing
-Component structuring
-Page layouts
-TaskCalculator
 
-Simple calculator / task app.
 
 Concepts
 
